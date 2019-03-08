@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tkH-cn-JX5">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Event Details Header Controller-->
+        <scene sceneID="3mg-kX-33J">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="tkH-cn-JX5" customClass="EventDetailsHeaderController" customModule="RoxieParallaxHeader" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KEY-D0-uDZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okn-zV-JDb" userLabel="Content View">
+                                <rect key="frame" x="0.0" y="0.5" width="375" height="184.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcO-mm-AQS" userLabel="Name Label">
+                                        <rect key="frame" x="16" y="1" width="343" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" amount label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wc6-KF-rm5" userLabel="Amount Label">
+                                        <rect key="frame" x="16" y="32.5" width="343" height="29"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oeh-kA-6Gg" userLabel="Action Buttons View">
+                                        <rect key="frame" x="87.5" y="94.5" width="200" height="72"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PVa-vO-SiN" userLabel="Reciept Button Container View">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="72"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nkc-LK-8ik" userLabel="Reciept Button">
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="72"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="Nkc-LK-8ik" firstAttribute="top" secondItem="PVa-vO-SiN" secondAttribute="top" id="4sy-wL-7yR"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Nkc-LK-8ik" secondAttribute="trailing" id="7LC-F0-Id5"/>
+                                                    <constraint firstAttribute="width" priority="250" id="MbF-Az-riJ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Nkc-LK-8ik" secondAttribute="bottom" id="dio-1q-BzC"/>
+                                                    <constraint firstAttribute="width" priority="500" constant="100" id="ewv-5y-pWX"/>
+                                                    <constraint firstItem="Nkc-LK-8ik" firstAttribute="leading" secondItem="PVa-vO-SiN" secondAttribute="leading" id="i9a-gv-swO"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sFl-Ig-TbD" userLabel="Repeat Button Container View">
+                                                <rect key="frame" x="100" y="0.0" width="100" height="72"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgW-49-hxn" userLabel="Repeat Button">
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="72"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" priority="500" constant="100" id="Fgt-LT-ekL"/>
+                                                    <constraint firstAttribute="width" priority="250" id="PeI-fQ-aim"/>
+                                                    <constraint firstAttribute="bottom" secondItem="pgW-49-hxn" secondAttribute="bottom" id="TqL-eS-dHw"/>
+                                                    <constraint firstItem="pgW-49-hxn" firstAttribute="top" secondItem="sFl-Ig-TbD" secondAttribute="top" id="XHA-hv-Dil"/>
+                                                    <constraint firstAttribute="trailing" secondItem="pgW-49-hxn" secondAttribute="trailing" id="dAs-dG-cmw"/>
+                                                    <constraint firstItem="pgW-49-hxn" firstAttribute="leading" secondItem="sFl-Ig-TbD" secondAttribute="leading" id="w6m-xI-v47"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="PVa-vO-SiN" secondAttribute="bottom" id="At4-S4-KFt"/>
+                                            <constraint firstItem="PVa-vO-SiN" firstAttribute="leading" secondItem="oeh-kA-6Gg" secondAttribute="leading" id="YdT-6v-ldu"/>
+                                            <constraint firstItem="sFl-Ig-TbD" firstAttribute="top" secondItem="oeh-kA-6Gg" secondAttribute="top" id="aiN-TD-kWH"/>
+                                            <constraint firstAttribute="height" constant="72" id="dDY-rU-2qA" userLabel="Buttons Container Height Constraint"/>
+                                            <constraint firstAttribute="trailing" secondItem="sFl-Ig-TbD" secondAttribute="trailing" id="mdi-Um-bRx"/>
+                                            <constraint firstItem="sFl-Ig-TbD" firstAttribute="leading" secondItem="PVa-vO-SiN" secondAttribute="trailing" id="o9n-rC-w3g"/>
+                                            <constraint firstAttribute="bottom" secondItem="sFl-Ig-TbD" secondAttribute="bottom" id="oIE-7d-sff"/>
+                                            <constraint firstItem="PVa-vO-SiN" firstAttribute="top" secondItem="oeh-kA-6Gg" secondAttribute="top" id="uVt-uv-Psc"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.19741172957248701" green="0.438916774611399" blue="0.43010945200725004" alpha="0.69093860035211263" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="EcO-mm-AQS" firstAttribute="top" secondItem="okn-zV-JDb" secondAttribute="top" priority="999" constant="1" id="38b-T2-1Ym"/>
+                                    <constraint firstItem="oeh-kA-6Gg" firstAttribute="top" secondItem="wc6-KF-rm5" secondAttribute="bottom" priority="999" constant="33" id="8me-9x-efR"/>
+                                    <constraint firstAttribute="trailing" secondItem="wc6-KF-rm5" secondAttribute="trailing" constant="16" id="DZ9-7u-tCL"/>
+                                    <constraint firstItem="wc6-KF-rm5" firstAttribute="top" secondItem="EcO-mm-AQS" secondAttribute="bottom" priority="999" constant="10" id="MHE-x4-MnN"/>
+                                    <constraint firstItem="oeh-kA-6Gg" firstAttribute="centerX" secondItem="okn-zV-JDb" secondAttribute="centerX" id="XbC-xa-EBW"/>
+                                    <constraint firstAttribute="trailing" secondItem="EcO-mm-AQS" secondAttribute="trailing" constant="16" id="jDi-Xc-Jyl"/>
+                                    <constraint firstItem="EcO-mm-AQS" firstAttribute="leading" secondItem="okn-zV-JDb" secondAttribute="leading" constant="16" id="jo9-f1-RET"/>
+                                    <constraint firstItem="wc6-KF-rm5" firstAttribute="leading" secondItem="okn-zV-JDb" secondAttribute="leading" constant="16" id="nNM-uM-Nz6"/>
+                                    <constraint firstAttribute="bottom" secondItem="oeh-kA-6Gg" secondAttribute="bottom" priority="999" constant="18" id="s9B-hc-7rr"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6oN-au-bLd" firstAttribute="bottom" secondItem="okn-zV-JDb" secondAttribute="bottom" id="KkP-rr-Z4O"/>
+                            <constraint firstItem="6oN-au-bLd" firstAttribute="trailing" secondItem="okn-zV-JDb" secondAttribute="trailing" id="iDf-a8-nQH"/>
+                            <constraint firstItem="okn-zV-JDb" firstAttribute="top" secondItem="6oN-au-bLd" secondAttribute="top" priority="50" id="nf9-w4-z4e"/>
+                            <constraint firstItem="okn-zV-JDb" firstAttribute="leading" secondItem="6oN-au-bLd" secondAttribute="leading" id="sZe-n7-euC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6oN-au-bLd"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="185"/>
+                    <connections>
+                        <outlet property="amountLabel" destination="wc6-KF-rm5" id="X3s-f6-Vqm"/>
+                        <outlet property="titleLabel" destination="EcO-mm-AQS" id="fZY-YE-KYN"/>
+                        <outletCollection property="controlButtons" destination="Nkc-LK-8ik" collectionClass="NSMutableArray" id="BYJ-zG-9yH"/>
+                        <outletCollection property="controlButtons" destination="pgW-49-hxn" collectionClass="NSMutableArray" id="X9b-3i-GUm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZWZ-Ez-ouB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="472.80000000000001" y="-100.29985007496252"/>
+        </scene>
+    </scenes>
+</document>
