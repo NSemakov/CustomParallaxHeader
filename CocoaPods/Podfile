@@ -1,0 +1,28 @@
+
+# How do I specify multiple targets and projects in my podfile for my Xcode project?
+# @link http://stackoverflow.com/a/20875561
+source 'https://github.com/roxiemobile/static-cocoa-frameworks.ios.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+
+platform :ios, '9.0'
+use_frameworks!
+
+workspace '../RoxieParallaxHeader.xcworkspace'
+
+def pod_with(name, *args)
+  name = name.split('/').tap { |arr| arr[0] = "#{arr[0]}-SCF42" }.reject(&:empty?).join('/')
+  pod(name, *args)
+end
+
+
+#project '../RoxieParallaxHeader/RoxieParallaxHeader.xcodeproj'
+target :RoxieParallaxHeader do
+  project '../RoxieParallaxHeader/RoxieParallaxHeader.xcodeproj'
+
+  pod_with 'PureLayout', '~> 3.1.2'
+  pod_with 'R.swift', '~> 5.0.0'
+
+  pod_with 'SwiftCommons', '~> 1.3.2'
+  pod_with 'ModernDesign', '~> 1.3.0'
+end

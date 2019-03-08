@@ -1,0 +1,131 @@
+PODS:
+  - CryptoSwift-SCF42 (0.13.1):
+    - CryptoSwift-SCF42/StaticCocoaFramework (= 0.13.1)
+  - CryptoSwift-SCF42/StaticCocoaFramework (0.13.1)
+  - Dispatch-SCF42 (2.0.4):
+    - Dispatch-SCF42/StaticCocoaFramework (= 2.0.4)
+  - Dispatch-SCF42/StaticCocoaFramework (2.0.4)
+  - ModernDesign-SCF42 (1.3.1):
+    - ModernDesign-SCF42/Extensions (= 1.3.1)
+  - ModernDesign-SCF42/Extensions (1.3.1):
+    - ModernDesignExtensions-SCF42 (= 1.3.1)
+  - ModernDesignExtensions-SCF42 (1.3.1):
+    - ModernDesignExtensions-SCF42/StaticCocoaFramework (= 1.3.1)
+  - ModernDesignExtensions-SCF42/StaticCocoaFramework (1.3.1):
+    - SwiftCommons-SCF42/Lang (~> 1.3.1)
+  - PureLayout-SCF42 (3.1.4):
+    - PureLayout-SCF42/StaticCocoaFramework (= 3.1.4)
+  - PureLayout-SCF42/StaticCocoaFramework (3.1.4)
+  - R.swift-SCF42 (5.0.2):
+    - R.swift-SCF42/StaticCocoaFramework (= 5.0.2)
+  - R.swift-SCF42/StaticCocoaFramework (5.0.2):
+    - R.swift.Library-SCF42 (~> 5.0.0)
+  - R.swift.Library-SCF42 (5.0.0):
+    - R.swift.Library-SCF42/StaticCocoaFramework (= 5.0.0)
+  - R.swift.Library-SCF42/StaticCocoaFramework (5.0.0)
+  - SwiftCommons-SCF42 (1.3.2):
+    - SwiftCommons-SCF42/Abstractions (= 1.3.2)
+    - SwiftCommons-SCF42/Concurrent (= 1.3.2)
+    - SwiftCommons-SCF42/Data (= 1.3.2)
+    - SwiftCommons-SCF42/Diagnostics (= 1.3.2)
+    - SwiftCommons-SCF42/Extensions (= 1.3.2)
+    - SwiftCommons-SCF42/Lang (= 1.3.2)
+    - SwiftCommons-SCF42/Logging (= 1.3.2)
+    - SwiftCommons-SCF42/ObjC (= 1.3.2)
+  - SwiftCommons-SCF42/Abstractions (1.3.2):
+    - SwiftCommonsAbstractions-SCF42 (= 1.3.2)
+  - SwiftCommons-SCF42/Concurrent (1.3.2):
+    - SwiftCommonsConcurrent-SCF42 (= 1.3.2)
+  - SwiftCommons-SCF42/Data (1.3.2):
+    - SwiftCommonsData-SCF42 (= 1.3.2)
+  - SwiftCommons-SCF42/Diagnostics (1.3.2):
+    - SwiftCommonsDiagnostics-SCF42 (= 1.3.2)
+  - SwiftCommons-SCF42/Extensions (1.3.2):
+    - SwiftCommonsExtensions-SCF42 (= 1.3.2)
+  - SwiftCommons-SCF42/Lang (1.3.2):
+    - SwiftCommonsLang-SCF42 (= 1.3.2)
+  - SwiftCommons-SCF42/Logging (1.3.2):
+    - SwiftCommonsLogging-SCF42 (= 1.3.2)
+  - SwiftCommons-SCF42/ObjC (1.3.2):
+    - SwiftCommonsObjC-SCF42 (= 1.3.2)
+  - SwiftCommonsAbstractions-SCF42 (1.3.2):
+    - SwiftCommonsAbstractions-SCF42/StaticCocoaFramework (= 1.3.2)
+  - SwiftCommonsAbstractions-SCF42/StaticCocoaFramework (1.3.2)
+  - SwiftCommonsConcurrent-SCF42 (1.3.2):
+    - SwiftCommonsConcurrent-SCF42/StaticCocoaFramework (= 1.3.2)
+  - SwiftCommonsConcurrent-SCF42/StaticCocoaFramework (1.3.2):
+    - Dispatch-SCF42 (~> 2.0.4)
+    - SwiftCommonsObjC-SCF42 (= 1.3.2)
+  - SwiftCommonsData-SCF42 (1.3.2):
+    - SwiftCommonsData-SCF42/StaticCocoaFramework (= 1.3.2)
+  - SwiftCommonsData-SCF42/StaticCocoaFramework (1.3.2):
+    - CryptoSwift-SCF42 (~> 0.13.1)
+    - SwiftCommonsDiagnostics-SCF42 (= 1.3.2)
+  - SwiftCommonsDiagnostics-SCF42 (1.3.2):
+    - SwiftCommonsDiagnostics-SCF42/StaticCocoaFramework (= 1.3.2)
+  - SwiftCommonsDiagnostics-SCF42/StaticCocoaFramework (1.3.2):
+    - SwiftCommonsConcurrent-SCF42 (= 1.3.2)
+    - SwiftCommonsExtensions-SCF42 (= 1.3.2)
+  - SwiftCommonsExtensions-SCF42 (1.3.2):
+    - SwiftCommonsExtensions-SCF42/StaticCocoaFramework (= 1.3.2)
+  - SwiftCommonsExtensions-SCF42/StaticCocoaFramework (1.3.2):
+    - SwiftCommonsAbstractions-SCF42 (= 1.3.2)
+    - SwiftCommonsLogging-SCF42 (= 1.3.2)
+  - SwiftCommonsLang-SCF42 (1.3.2):
+    - SwiftCommonsLang-SCF42/StaticCocoaFramework (= 1.3.2)
+  - SwiftCommonsLang-SCF42/StaticCocoaFramework (1.3.2)
+  - SwiftCommonsLogging-SCF42 (1.3.2):
+    - SwiftCommonsLogging-SCF42/StaticCocoaFramework (= 1.3.2)
+  - SwiftCommonsLogging-SCF42/StaticCocoaFramework (1.3.2):
+    - SwiftCommonsConcurrent-SCF42 (= 1.3.2)
+    - SwiftCommonsLang-SCF42 (= 1.3.2)
+  - SwiftCommonsObjC-SCF42 (1.3.2):
+    - SwiftCommonsObjC-SCF42/StaticCocoaFramework (= 1.3.2)
+  - SwiftCommonsObjC-SCF42/StaticCocoaFramework (1.3.2)
+
+DEPENDENCIES:
+  - ModernDesign-SCF42 (~> 1.3.0)
+  - PureLayout-SCF42 (~> 3.1.2)
+  - R.swift-SCF42 (~> 5.0.0)
+  - SwiftCommons-SCF42 (~> 1.3.2)
+
+SPEC REPOS:
+  https://github.com/roxiemobile/static-cocoa-frameworks.ios.git:
+    - CryptoSwift-SCF42
+    - Dispatch-SCF42
+    - ModernDesign-SCF42
+    - ModernDesignExtensions-SCF42
+    - PureLayout-SCF42
+    - R.swift-SCF42
+    - R.swift.Library-SCF42
+    - SwiftCommons-SCF42
+    - SwiftCommonsAbstractions-SCF42
+    - SwiftCommonsConcurrent-SCF42
+    - SwiftCommonsData-SCF42
+    - SwiftCommonsDiagnostics-SCF42
+    - SwiftCommonsExtensions-SCF42
+    - SwiftCommonsLang-SCF42
+    - SwiftCommonsLogging-SCF42
+    - SwiftCommonsObjC-SCF42
+
+SPEC CHECKSUMS:
+  CryptoSwift-SCF42: 7dd3f9ae91fe4f509c50714ae5bbd389a64fef95
+  Dispatch-SCF42: fc46e7885fca268f45e14ac086e3e6ddd009b1c7
+  ModernDesign-SCF42: f446ccc29ede591e76a01680508216d40322f479
+  ModernDesignExtensions-SCF42: 0fc7e6efea8565d1407a51d775f04741228f6e7d
+  PureLayout-SCF42: 6587c78d6464eaa06f705116aa162bee9dcbc2b9
+  R.swift-SCF42: a39d4900ba2bf0d70830c3ee9bf4e5d8305e4fdb
+  R.swift.Library-SCF42: 48432b3a47bc5f754c0e8ef5e72a01794ac86acb
+  SwiftCommons-SCF42: 252ecfee742eb734c2ce23f0b052515438bfa858
+  SwiftCommonsAbstractions-SCF42: 8bbc258337bfe2799e7fb3c4477fcfcd5c6d2c85
+  SwiftCommonsConcurrent-SCF42: e42513bd3ac581201c454697c63481127755999b
+  SwiftCommonsData-SCF42: e81f4f975746ec17db8bbc89c47bb186b4e2becf
+  SwiftCommonsDiagnostics-SCF42: 65459875c1b4bb6980b74c22170b40f08156f9f2
+  SwiftCommonsExtensions-SCF42: 850f8a28787ef33afc9357fdc4c6469f03762d09
+  SwiftCommonsLang-SCF42: dfdedb6e21d3ff9a52ff3efac0cae2dd4a831b0c
+  SwiftCommonsLogging-SCF42: 3839670532aea6c8ff4b952054ceb7b9a97ae7a8
+  SwiftCommonsObjC-SCF42: 3fc92b1d8f39f116fcab071bf1fe9bdf81526515
+
+PODFILE CHECKSUM: fb25f138c42afcbd9bf1fd4bc4755472edb56e5f
+
+COCOAPODS: 1.5.3
