@@ -3,6 +3,8 @@
 
 # Xcode project
 xcuserdata/
+*xcworkspace/xcuserdata/*
+*/xcuserdata/*
 .LSOverride
 
 # Other

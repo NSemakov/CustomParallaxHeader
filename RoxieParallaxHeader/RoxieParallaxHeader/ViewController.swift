@@ -60,7 +60,7 @@ class ViewController: UIViewController
         let panGesture = UIPanGestureRecognizer(target: self, action: Actions.handlePan)
         self.headerContainerView.addGestureRecognizer(panGesture)
         self.tableView.isScrollEnabled = true
-        addObserver(self.tableView, forKeyPath: "contentOffset", options: [.new, .old], context: nil)
+        self.tableView.addObserver(self, forKeyPath: "contentOffset", options: [.new, .old], context: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,8 +80,11 @@ class ViewController: UIViewController
         
         let new = change[.newKey] as! CGPoint
         let old = change[.oldKey] as! CGPoint
-        let diff = old.y - new.y
+        let diff = new.y - old.y
         
+        if (diff == 0.0 || !self.isObserving) {
+            return
+        }
 //        let oldContentOffsetY = old.y
 //        let newContentOffsetY = new.y
 //        //        let oldContentOffsetY = self.contentOffsetPermanent.y
@@ -92,47 +95,56 @@ class ViewController: UIViewController
         //        self.contentOffset = CGPoint(x: self.contentOffset.x, y: newContentOffsetY)
         
         var proposedHeaderHeight = self.headerHeightConstraint.constant - diff // decrease when scroll from bottom to top and increase when scroll from top to bottom
-        print("! proposedHeaderHeight: \(proposedHeaderHeight)")
+        print("! self.headerHeightConstraint.constant: \(self.headerHeightConstraint.constant), diff: \(diff), proposedHeaderHeight: \(proposedHeaderHeight)")
         if diff > 0
         {
             // Scroll from bottom to top
             if proposedHeaderHeight < self.minHeight {
+                self.headerHeightConstraint.constant = self.minHeight
                 //                self.contentOffset = CGPoint(x: self.contentOffset.x, y: newContentOffsetY)
-                print("! 4 diff > 0; proposedHeaderHeight < self.minHeight")
+                print("! 4.1 diff > 0; proposedHeaderHeight < self.minHeight")
             }
             else if proposedHeaderHeight > self.maxHeight {
                 // Can't be here
+                self.headerHeightConstraint.constant = self.maxHeight
                 //                self.contentOffset = CGPoint(x: self.contentOffset.x, y: newContentOffsetY)
-                print("! 4 diff > 0; proposedHeaderHeight > self.maxHeight")
+                print("! 4.2 diff > 0; proposedHeaderHeight > self.maxHeight")
             }
             else {
                 self.headerHeightConstraint.constant = proposedHeaderHeight
-                scroll(self.tableView, setContentOffset: CGPoint.zero)
-                print("! 4 diff > 0; else")
+                scroll(self.tableView, setContentOffset: old)
+                print("! 4.3 diff > 0; else")
             }
         }
         else {
             // Scroll from top to bottom
             if proposedHeaderHeight < self.minHeight {
                 // Can't be here
+                self.headerHeightConstraint.constant = self.minHeight
                 //                self.contentOffset = CGPoint(x: self.contentOffset.x, y: newContentOffsetY)
-                print("! 5 diff < 0; proposedHeaderHeight < self.minHeight")
+                print("! 5.1 diff < 0; proposedHeaderHeight < self.minHeight")
             }
-            else if proposedHeaderHeight > self.maxHeight {
+            else if proposedHeaderHeight > self.maxHeight
+            {
                 // Pull header down
                 // Must increase top constraint from header to superView
-                //                self.contentOffset = CGPoint(x: self.contentOffset.x, y: newContentOffsetY)
-                print("! 5 diff < 0; proposedHeaderHeight > self.minHeight")
+                self.headerHeightConstraint.constant = self.maxHeight
+
+                if new.y > 0 {
+                    print("! 5.2 diff < 0; scrollView.contentOffset.y > 0: \(new.y )")
+                }
+                else {
+                    print("! 5.3 diff < 0; scrollView.contentOffset.y <= 0: \(new.y)")
+                    scroll(self.tableView, setContentOffset: old)
+                }
             }
             else {
                 if new.y > 0 {
-                    //                    proposedHeaderHeight += diff
-                    //                    self.contentOffset = CGPoint(x: self.contentOffset.x, y: newContentOffsetY)
-                    print("! 5 diff < 0; scrollView.contentOffset.y > 0: \(new.y )")
+                    print("! 5.4 diff < 0; scrollView.contentOffset.y > 0: \(new.y )")
                 }
                 else {
                     self.headerHeightConstraint.constant = proposedHeaderHeight
-                    print("! 5 diff < 0; scrollView.contentOffset.y <= 0: \(new.y)")
+                    print("! 5.5 diff < 0; scrollView.contentOffset.y <= 0: \(new.y)")
                     scroll(self.tableView, setContentOffset: CGPoint.zero)
                 }
             }
@@ -175,7 +187,7 @@ class ViewController: UIViewController
     {
         let cellTypes: [MenuItemType]
         
-        cellTypes = [.manageProfile, .officesAndATMs, .currencyRates, .appSettings, .contactWithBank, .aboutApp, .exit, .aboutApp, .aboutApp, .aboutApp, .aboutApp]
+        cellTypes = [.manageProfile, .officesAndATMs, .currencyRates, .appSettings, .contactWithBank, .aboutApp, .exit, .manageProfile, .officesAndATMs, .currencyRates, .appSettings, .contactWithBank, .aboutApp, .exit, .manageProfile, .officesAndATMs, .currencyRates, .appSettings, .contactWithBank, .aboutApp, .exit]
 //        cellTypes = [.manageProfile, .officesAndATMs]
         
         self.menuItems = cellTypes.map { return MenuItem(type: $0) }
@@ -254,7 +266,7 @@ class ViewController: UIViewController
     
     private var minHeight: CGFloat = 50
     
-    private var maxHeight: CGFloat = 250
+    private var maxHeight: CGFloat = 190
     
     private var initialHeight: CGFloat = 0
     
