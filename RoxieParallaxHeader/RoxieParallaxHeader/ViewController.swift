@@ -113,6 +113,7 @@ class ViewController: UIViewController
             else {
                 self.headerHeightConstraint.constant = proposedHeaderHeight
                 scroll(self.tableView, setContentOffset: old)
+                
                 print("! 4.3 diff > 0; else")
             }
         }
@@ -175,13 +176,44 @@ class ViewController: UIViewController
                     self.headerHeightConstraint.constant = proposedHeaderHeight
                 }
             
+            case .ended, .cancelled:
+                let state: HeaderState
+                
+                let velocity = gestureRecognizer.velocity(in: self.view).y
+                if (abs(velocity) > Inner.PanVelocityThreshold)
+                {
+                    state = (velocity > 0.0) ? .maximized : .minimized
+                }
+                else {
+                    state = nearestState()
+                }
+                
+                setHeaderState(state, animated: true)
+            
             default:
                 break
         }
-        print("! handlePanGestureRecognizer")
     }
     
 // MARK: - Private Methods
+    
+    private func nearestState() -> HeaderState {
+        // Watch for half-height difference between max and min state.
+        let constantToCompare = (heightForState(.maximized) - heightForState(.minimized)) / 2.0
+        let currentConstant = heightForState(.maximized) - self.headerHeightConstraint.constant
+        
+        return (currentConstant > constantToCompare) ? .minimized : .maximized
+    }
+    
+    private func heightForState(_ state: HeaderState) -> CGFloat
+    {
+        switch state
+        {
+            case .hidden:    return 0.0
+            case .minimized: return self.minHeight
+            case .maximized: return self.maxHeight
+        }
+    }
     
     private func updateInterface()
     {
@@ -195,33 +227,50 @@ class ViewController: UIViewController
         self.tableView.reloadData()
     }
     
-    private func adjustContentOffset(for scrollView: UIScrollView)
-    {
-        let contentOffsetY = -scrollView.contentOffset.y
-        
-        // heightThreshold is Inner.ChangeHeightThreshold (0.5) of BaseProductRootController.DefaultHeight from bottom
-        let heightThreshold = self.maxHeight - (Inner.ChangeHeightThreshold * (self.maxHeight - self.minHeight))
-        if contentOffsetY < self.maxHeight && contentOffsetY > heightThreshold {
-//            delayUserInteraction(on: scrollView)
-            setHeaderState(.maximized, for: scrollView)
-        }
-        else
-        if contentOffsetY < self.maxHeight && contentOffsetY <= heightThreshold
-        {
-//                delayUserInteraction(on: scrollView)
-            setHeaderState(.minimized, for: scrollView)
-        }
-    }
+//    private func adjustContentOffset(for scrollView: UIScrollView)
+//    {
+//        let contentOffsetY = -scrollView.contentOffset.y
+//
+//        // heightThreshold is Inner.ChangeHeightThreshold (0.5) of BaseProductRootController.DefaultHeight from bottom
+//        let heightThreshold = self.maxHeight - (Inner.ChangeHeightThreshold * (self.maxHeight - self.minHeight))
+//        if contentOffsetY < self.maxHeight && contentOffsetY > heightThreshold {
+////            delayUserInteraction(on: scrollView)
+//            setHeaderState(.maximized, for: scrollView)
+//        }
+//        else
+//        if contentOffsetY < self.maxHeight && contentOffsetY <= heightThreshold
+//        {
+////                delayUserInteraction(on: scrollView)
+//            setHeaderState(.minimized, for: scrollView)
+//        }
+//    }
     
-    private func setHeaderState(_ state: HeaderState, for scrollView: UIScrollView)
+    private func setHeaderState(_ state: HeaderState, animated: Bool)
     {
-        switch state
+        let height = heightForState(state)
+        if (height != self.headerHeightConstraint.constant)
         {
-            case .minimized:
-                scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: -self.minHeight), animated: true)
+            if (state == .maximized)
+            {
+//                self.delegate?.bottomSlideViewWillMaximize(self)
+            }
+            else {
+//                self.delegate?.bottomSlideViewWillMinimize(self)
+            }
             
-            case .maximized:
-                scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: -self.maxHeight), animated: true)
+            weak var weakSelf = self
+            let changes: () -> Void = {
+                weakSelf?.headerHeightConstraint.constant = height
+                weakSelf?.view.layoutIfNeeded()
+            }
+            
+            if animated
+            {
+                UIView.animate(withDuration: Inner.PanAnimationDuration, animations: changes)
+            }
+            else {
+                changes()
+            }
         }
     }
     
@@ -235,6 +284,7 @@ class ViewController: UIViewController
 // MARK: - Inner Types
     
     private enum HeaderState {
+        case hidden
         case minimized
         case maximized
     }
@@ -252,6 +302,9 @@ class ViewController: UIViewController
         static let TableContentInsets = UIEdgeInsetsMake(24.0, 0, 0, 0)
         static let ChangeHeightThreshold: CGFloat = 0.5 // 50 % from bottom
         static let SeparatorColor: UIColor = UIColor.gray
+        
+        static let PanAnimationDuration: TimeInterval = 0.30
+        static let PanVelocityThreshold: CGFloat = 300
     }
     
     // MARK: - Variables
@@ -301,7 +354,7 @@ extension ViewController: UIScrollViewDelegate
         // Called after touching
         // After lifting finger with abs(velocity) > 0
 //        adjustContentOffset(for: scrollView)
-
+        setHeaderState(nearestState(), animated: true)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
@@ -311,6 +364,7 @@ extension ViewController: UIScrollViewDelegate
 //
         // After lifting finger with velocity == 0
         if !decelerate {
+            setHeaderState(nearestState(), animated: true)
 //            adjustContentOffset(for: scrollView)
 
             // To enable tap on cell when user scrolls without deceleration
