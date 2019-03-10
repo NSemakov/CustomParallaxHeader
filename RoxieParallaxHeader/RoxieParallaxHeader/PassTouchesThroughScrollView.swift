@@ -21,7 +21,7 @@ class PassTouchesThroughScrollView: UIScrollView
         var result: UIView? = nil
 
         if let headerView = self.firstViewOfClass(HeaderView.self), headerView.point(inside: point, with: event) {
-            result = headerView
+            result = headerView.hitTest(point, with: event)
         }
         
         return result

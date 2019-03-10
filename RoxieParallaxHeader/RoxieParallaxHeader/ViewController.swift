@@ -93,7 +93,6 @@ class ViewController: UIViewController
         print("! visibleHeaderPartHeight: \(visibleHeaderPartHeight)")
         if let object = object as? AnyObject, object === self.tableView
         {
-            let tableViewOffsetForCompareAsZeroReference = self.tableView.contentOffset.y + self.tableView.contentInset.top
             print("! self.tableView.contentOffset.y: \(self.tableView.contentOffset.y)")
             let proposedHeaderContentOffsetY = self.scrollView.contentOffset.y + diff // decrease when scroll from bottom to top and increase when scroll from top to bottom
             var proposedHeaderContentOffset = CGPoint(x: self.scrollView.contentOffset.x, y: proposedHeaderContentOffsetY)
@@ -156,6 +155,8 @@ class ViewController: UIViewController
                 }
                 else {
                     if -new.y < visibleHeaderPartHeight {
+//                        scroll(self.tableView, setContentOffset: old)
+//                        scroll(self.scrollView, setContentOffset: proposedHeaderContentOffset)
                         print("! 5.4 Scroll from top to bottom; scrollView.contentOffset.y > 0: \(new.y), visibleHeaderPartHeight: \(visibleHeaderPartHeight)")
                     }
                     else {
@@ -171,9 +172,63 @@ class ViewController: UIViewController
         else
         if let object = object as? AnyObject, object === self.scrollView
         {
-            let b = 2
-            print(b)
-            let a = 3
+            let proposedTableViewContentOffsetY = self.tableView.contentOffset.y + diff // decrease when scroll from bottom to top and increase when scroll from top to bottom
+            var proposedTableViewContentOffset = CGPoint(x: self.tableView.contentOffset.x, y: proposedTableViewContentOffsetY)
+            
+            if diff > 0
+            {
+                // Scroll from bottom to top
+                if visibleHeaderPartHeight < self.minHeight {
+                    scroll(self.scrollView, setContentOffset: old)
+                    //                    self.headerHeightConstraint.constant = self.minHeight
+                    // Pull header up
+                    //                    scroll(self.scrollView, setContentOffset: newScrollViewContentOffset)
+                    //                    let minContentOffset = CGPoint(x: self.scrollView.contentOffset.x, y: self.headerContainerView.height - self.minHeight)
+                    //                    scroll(self.scrollView, setContentOffset: minContentOffset)
+                    print("! 6.1 Scroll from bottom to top; proposedHeaderHeight < self.minHeight")
+                }
+                else if visibleHeaderPartHeight > self.maxHeight {
+                    // Can't be here
+                    //                    self.headerHeightConstraint.constant = self.maxHeight
+                    print("! 6.2 Scroll from bottom to top; proposedHeaderHeight > self.maxHeight")
+                }
+                else {
+                    //                    self.headerHeightConstraint.constant = proposedHeaderHeight
+                    // Pull header up
+                    scroll(self.tableView, setContentOffset: proposedTableViewContentOffset)
+//                    let newVisibleHeaderPartHeight = visibleHeaderPartHeight - diff
+//                    if newVisibleHeaderPartHeight < self.minHeight {
+//                        // Need proper handling for cases, where header can change it's height. self.maxHeight  in self.maxHeight - self.minHeight should be changed.
+//                        proposedHeaderContentOffset = CGPoint(x: self.scrollView.contentOffset.x, y: self.maxHeight - self.minHeight)
+//                    }
+//
+//                    scroll(self.scrollView, setContentOffset: proposedHeaderContentOffset)
+                    
+                    print("! 6.3 Scroll from bottom to top; else")
+                }
+            }
+            else {
+                // Scroll from top to bottom
+                
+                if visibleHeaderPartHeight < self.minHeight {
+                    // Can't be here
+                    //                    self.headerHeightConstraint.constant = self.minHeight
+                    //                self.contentOffset = CGPoint(x: self.contentOffset.x, y: newContentOffsetY)
+                    print("! 7.1 Scroll from top to bottom; proposedHeaderHeight < self.minHeight")
+                }
+                else if visibleHeaderPartHeight >= self.maxHeight
+                {
+                    // visibleHeaderPartHeight rarely can be > maxHeight.
+                    // Must increase top constraint from header to superView
+                    //                    self.headerHeightConstraint.constant = self.maxHeight
+                    scroll(self.tableView, setContentOffset: proposedTableViewContentOffset)
+                    print("! 7.2 Scroll from top to bottom; visibleHeaderPartHeight >= self.maxHeight")
+                }
+                else {
+                    scroll(self.tableView, setContentOffset: proposedTableViewContentOffset)
+                    print("! 7.3 Scroll from top to bottom; visibleHeaderPartHeight between min and max")
+                }
+            }
         }
         
         
