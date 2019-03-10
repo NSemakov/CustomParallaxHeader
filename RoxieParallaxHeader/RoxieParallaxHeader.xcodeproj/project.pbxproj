@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2434AA9922351EF2002105BD /* PassTouchesThroughScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2434AA9822351EF2002105BD /* PassTouchesThroughScrollView.swift */; };
+		2434AA9B2235241B002105BD /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2434AA9A2235241B002105BD /* UIView.swift */; };
 		2463EE11219CDE7100B2CB06 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2463EE10219CDE7100B2CB06 /* HeaderView.swift */; };
 		2466AC13219B704E001B1AD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2466AC12219B704E001B1AD1 /* AppDelegate.swift */; };
 		2466AC15219B704E001B1AD1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2466AC14219B704E001B1AD1 /* ViewController.swift */; };
@@ -22,7 +24,6 @@
 		2466AC3D219B7298001B1AD1 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2466AC34219B7298001B1AD1 /* MenuItem.swift */; };
 		2466AC40219B7298001B1AD1 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2466AC39219B7298001B1AD1 /* MenuCell.swift */; };
 		2466AC43219B737A001B1AD1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2466AC42219B737A001B1AD1 /* UIKit.framework */; };
-		2466AC5B219B785A001B1AD1 /* UIView+MDAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2466AC47219B785A001B1AD1 /* UIView+MDAdditions.swift */; };
 		2466AC5C219B785A001B1AD1 /* UIImage+MDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2466AC48219B785A001B1AD1 /* UIImage+MDAdditions.m */; };
 		2466AC5D219B785A001B1AD1 /* UIImage+MDAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2466AC49219B785A001B1AD1 /* UIImage+MDAdditions.swift */; };
 		2466AC5E219B785A001B1AD1 /* UIView+MDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2466AC4A219B785A001B1AD1 /* UIView+MDAdditions.m */; };
@@ -45,6 +46,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2434AA9822351EF2002105BD /* PassTouchesThroughScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PassTouchesThroughScrollView.swift; path = ../../../../../.Trash/PassTouchesThroughScrollView.swift; sourceTree = "<group>"; };
+		2434AA9A2235241B002105BD /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		2463EE10219CDE7100B2CB06 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		2466AC0F219B704E001B1AD1 /* RoxieParallaxHeader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoxieParallaxHeader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2466AC12219B704E001B1AD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,7 +66,6 @@
 		2466AC39219B7298001B1AD1 /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		2466AC42219B737A001B1AD1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2466AC46219B785A001B1AD1 /* UIView+MDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MDAdditions.h"; sourceTree = "<group>"; };
-		2466AC47219B785A001B1AD1 /* UIView+MDAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+MDAdditions.swift"; sourceTree = "<group>"; };
 		2466AC48219B785A001B1AD1 /* UIImage+MDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MDAdditions.m"; sourceTree = "<group>"; };
 		2466AC49219B785A001B1AD1 /* UIImage+MDAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+MDAdditions.swift"; sourceTree = "<group>"; };
 		2466AC4A219B785A001B1AD1 /* UIView+MDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MDAdditions.m"; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				2466AC12219B704E001B1AD1 /* AppDelegate.swift */,
 				2466AC14219B704E001B1AD1 /* ViewController.swift */,
 				2463EE10219CDE7100B2CB06 /* HeaderView.swift */,
+				2434AA9822351EF2002105BD /* PassTouchesThroughScrollView.swift */,
 				2466AC16219B704E001B1AD1 /* Main.storyboard */,
 				2466AC6A219B79C9001B1AD1 /* RoxieParallaxHeader-Bridging-Header.h */,
 				2466AC19219B704E001B1AD1 /* Assets.xcassets */,
@@ -232,7 +235,6 @@
 			isa = PBXGroup;
 			children = (
 				2466AC46219B785A001B1AD1 /* UIView+MDAdditions.h */,
-				2466AC47219B785A001B1AD1 /* UIView+MDAdditions.swift */,
 				2466AC48219B785A001B1AD1 /* UIImage+MDAdditions.m */,
 				2466AC49219B785A001B1AD1 /* UIImage+MDAdditions.swift */,
 				2466AC4A219B785A001B1AD1 /* UIView+MDAdditions.m */,
@@ -240,6 +242,7 @@
 				2466AC68219B78EF001B1AD1 /* UITableViewCell.swift */,
 				2466AC6B219B7AB3001B1AD1 /* UITableViewHeaderFooterView.swift */,
 				2466AC6D219B7B07001B1AD1 /* UITableView.swift */,
+				2434AA9A2235241B002105BD /* UIView.swift */,
 				2466AC87219B829A001B1AD1 /* UIViewController.swift */,
 			);
 			path = UIKit;
@@ -430,6 +433,7 @@
 				2466AC6E219B7B08001B1AD1 /* UITableView.swift in Sources */,
 				2466AC81219B80A4001B1AD1 /* EventDetailsHeaderController.swift in Sources */,
 				2466AC6C219B7AB3001B1AD1 /* UITableViewHeaderFooterView.swift in Sources */,
+				2434AA9B2235241B002105BD /* UIView.swift in Sources */,
 				2466AC69219B78EF001B1AD1 /* UITableViewCell.swift in Sources */,
 				2466AC62219B785A001B1AD1 /* NSDictionary+MDAdditions.m in Sources */,
 				2466AC40219B7298001B1AD1 /* MenuCell.swift in Sources */,
@@ -446,7 +450,7 @@
 				2466AC60219B785A001B1AD1 /* NSData+MDAdditions.m in Sources */,
 				2466AC5E219B785A001B1AD1 /* UIView+MDAdditions.m in Sources */,
 				2466AC2D219B7253001B1AD1 /* ContainerCell.swift in Sources */,
-				2466AC5B219B785A001B1AD1 /* UIView+MDAdditions.swift in Sources */,
+				2434AA9922351EF2002105BD /* PassTouchesThroughScrollView.swift in Sources */,
 				2463EE11219CDE7100B2CB06 /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

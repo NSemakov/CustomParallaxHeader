@@ -65,11 +65,6 @@ class StackView: UIView
         subviewsDidUpdate()
     }
 
-    override func removeSubviews() {
-        super.removeSubviews()
-        subviewsDidUpdate()
-    }
-
     override func updateConstraints()
     {
         // Remove all constraints

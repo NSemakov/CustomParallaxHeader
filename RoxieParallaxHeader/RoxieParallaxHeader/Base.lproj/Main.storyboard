@@ -19,32 +19,69 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Mn-MU-TVm">
-                                <rect key="frame" x="0.0" y="320" width="375" height="347"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJn-Qp-dmT" userLabel="Header Container View" customClass="HeaderView" customModule="RoxieParallaxHeader" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="300"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gLN-HY-F7p" customClass="PassTouchesThroughScrollView" customModule="RoxieParallaxHeader" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eS0-0d-AbL" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="320"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJn-Qp-dmT" userLabel="Header Container View" customClass="HeaderView" customModule="RoxieParallaxHeader" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" priority="900" constant="300" id="L8I-M8-xRb"/>
+                                                </constraints>
+                                            </view>
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3gc-Wz-VuG" userLabel="Dummy View">
+                                                <rect key="frame" x="0.0" y="300" width="375" height="20"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="Eeu-cZ-Ky0"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="3gc-Wz-VuG" secondAttribute="trailing" id="Ac0-hG-qtO"/>
+                                            <constraint firstAttribute="bottom" secondItem="3gc-Wz-VuG" secondAttribute="bottom" id="WfU-CB-Itm"/>
+                                            <constraint firstItem="tJn-Qp-dmT" firstAttribute="top" secondItem="eS0-0d-AbL" secondAttribute="top" id="j9o-SM-Wqq"/>
+                                            <constraint firstItem="tJn-Qp-dmT" firstAttribute="leading" secondItem="eS0-0d-AbL" secondAttribute="leading" id="l7R-ic-y7X"/>
+                                            <constraint firstItem="3gc-Wz-VuG" firstAttribute="top" secondItem="tJn-Qp-dmT" secondAttribute="bottom" id="oxY-ji-sSS"/>
+                                            <constraint firstAttribute="trailing" secondItem="tJn-Qp-dmT" secondAttribute="trailing" id="s7m-at-0as"/>
+                                            <constraint firstItem="3gc-Wz-VuG" firstAttribute="leading" secondItem="eS0-0d-AbL" secondAttribute="leading" id="tW6-go-0On"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="L8I-M8-xRb"/>
+                                    <constraint firstItem="eS0-0d-AbL" firstAttribute="width" secondItem="gLN-HY-F7p" secondAttribute="width" id="Nla-Rk-p9X"/>
+                                    <constraint firstItem="eS0-0d-AbL" firstAttribute="leading" secondItem="gLN-HY-F7p" secondAttribute="leading" id="QUI-KV-sQ2"/>
+                                    <constraint firstItem="eS0-0d-AbL" firstAttribute="top" secondItem="gLN-HY-F7p" secondAttribute="top" id="SY7-nB-bUG"/>
+                                    <constraint firstAttribute="trailing" secondItem="eS0-0d-AbL" secondAttribute="trailing" id="qTu-Bj-x5n"/>
+                                    <constraint firstAttribute="bottom" secondItem="eS0-0d-AbL" secondAttribute="bottom" id="xat-mS-ICi"/>
                                 </constraints>
-                            </view>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="tJn-Qp-dmT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="GkS-lk-qN1"/>
+                            <constraint firstItem="9Mn-MU-TVm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="2qw-WU-fpL"/>
+                            <constraint firstItem="gLN-HY-F7p" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5ss-AV-aHq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9Mn-MU-TVm" secondAttribute="trailing" id="KHh-Yb-fQF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="9Mn-MU-TVm" secondAttribute="bottom" id="Xx8-iT-GAe"/>
-                            <constraint firstItem="9Mn-MU-TVm" firstAttribute="top" secondItem="tJn-Qp-dmT" secondAttribute="bottom" id="YeM-EK-wa3"/>
                             <constraint firstItem="9Mn-MU-TVm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hvF-Ew-Rlb"/>
-                            <constraint firstItem="tJn-Qp-dmT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="vZB-ps-mXp"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tJn-Qp-dmT" secondAttribute="trailing" id="z88-Jk-xMh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gLN-HY-F7p" secondAttribute="trailing" id="t3c-wQ-awe"/>
+                            <constraint firstItem="gLN-HY-F7p" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uwY-46-Iub"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gLN-HY-F7p" secondAttribute="bottom" id="zUU-vp-GPC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="dummyViewHeightConstraint" destination="Eeu-cZ-Ky0" id="xgy-l8-WfU"/>
                         <outlet property="headerContainerView" destination="tJn-Qp-dmT" id="1lh-2g-7TP"/>
                         <outlet property="headerHeightConstraint" destination="L8I-M8-xRb" id="F7z-JH-4aN"/>
+                        <outlet property="scrollView" destination="gLN-HY-F7p" id="2yy-eo-g2l"/>
                         <outlet property="tableView" destination="9Mn-MU-TVm" id="D3E-Xu-kjn"/>
                     </connections>
                 </viewController>

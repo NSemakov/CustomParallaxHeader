@@ -28,7 +28,7 @@ class HeaderView: UIView
     
 // MARK: - Properties
     
-    var shouldPassTouch = false
+//    var shouldPassTouch = false
     
 // MARK: - Methods
     
