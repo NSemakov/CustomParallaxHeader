@@ -195,7 +195,7 @@ class ViewController: UIViewController
                 else {
                     //                    self.headerHeightConstraint.constant = proposedHeaderHeight
                     // Pull header up
-                    scroll(self.tableView, setContentOffset: proposedTableViewContentOffset)
+                    scroll(self.tableView, setContentOffsetImmediately: proposedTableViewContentOffset)
 //                    let newVisibleHeaderPartHeight = visibleHeaderPartHeight - diff
 //                    if newVisibleHeaderPartHeight < self.minHeight {
 //                        // Need proper handling for cases, where header can change it's height. self.maxHeight  in self.maxHeight - self.minHeight should be changed.
@@ -221,11 +221,11 @@ class ViewController: UIViewController
                     // visibleHeaderPartHeight rarely can be > maxHeight.
                     // Must increase top constraint from header to superView
                     //                    self.headerHeightConstraint.constant = self.maxHeight
-                    scroll(self.tableView, setContentOffset: proposedTableViewContentOffset)
+                    scroll(self.tableView, setContentOffsetImmediately: proposedTableViewContentOffset)
                     print("! 7.2 Scroll from top to bottom; visibleHeaderPartHeight >= self.maxHeight")
                 }
                 else {
-                    scroll(self.tableView, setContentOffset: proposedTableViewContentOffset)
+                    scroll(self.tableView, setContentOffsetImmediately: proposedTableViewContentOffset)
                     print("! 7.3 Scroll from top to bottom; visibleHeaderPartHeight between min and max")
                 }
             }
@@ -321,6 +321,13 @@ class ViewController: UIViewController
     {
         self.isObserving = false
         scrollView.contentOffset = offset
+        self.isObserving = true
+    }
+    
+    private func scroll(_ scrollView: UIScrollView, setContentOffsetImmediately offset: CGPoint)
+    {
+        self.isObserving = false
+        scrollView.setContentOffset(offset, animated: false)
         self.isObserving = true
     }
     
