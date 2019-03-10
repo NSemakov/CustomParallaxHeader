@@ -103,15 +103,12 @@ class ViewController: UIViewController
                 if visibleHeaderPartHeight < self.minHeight {
 //                    self.headerHeightConstraint.constant = self.minHeight
                     // Pull header up
-//                    scroll(self.scrollView, setContentOffset: newScrollViewContentOffset)
-//                    let minContentOffset = CGPoint(x: self.scrollView.contentOffset.x, y: self.headerContainerView.height - self.minHeight)
-//                    scroll(self.scrollView, setContentOffset: minContentOffset)
-                    print("! 4.1 diff > 0; proposedHeaderHeight < self.minHeight")
+                    print("! 4.1 Scroll from bottom to top; proposedHeaderHeight < self.minHeight")
                 }
                 else if visibleHeaderPartHeight > self.maxHeight {
                     // Can't be here
 //                    self.headerHeightConstraint.constant = self.maxHeight
-                    print("! 4.2 diff > 0; proposedHeaderHeight > self.maxHeight")
+                    print("! 4.2 Scroll from bottom to top; proposedHeaderHeight > self.maxHeight")
                 }
                 else {
 //                    self.headerHeightConstraint.constant = proposedHeaderHeight
@@ -124,7 +121,7 @@ class ViewController: UIViewController
                     
                     scroll(self.scrollView, setContentOffsetImmediately: proposedHeaderContentOffset)
                     
-                    print("! 4.3 diff > 0; else")
+                    print("! 4.3 Scroll from bottom to top; else, proposedHeaderContentOffset: \(proposedHeaderContentOffset)")
                 }
             }
             else {
@@ -143,10 +140,10 @@ class ViewController: UIViewController
 //                    self.headerHeightConstraint.constant = self.maxHeight
                     
                     if new.y > -self.maxHeight {
-                        print("! 5.2 Scroll from top to bottom; scrollView.contentOffset.y > 0: \(-new.y), visibleHeaderPartHeight: \(visibleHeaderPartHeight)")
+                        print("! 5.2 Scroll from top to bottom; scrollView.contentOffset.y > 0: \(-new.y), visibleHeaderPartHeight: \(visibleHeaderPartHeight), proposedHeaderContentOffset: \(proposedHeaderContentOffset)")
                     }
                     else {
-                        print("! 5.3 Scroll from top to bottom; scrollView.contentOffset.y <= 0: \(-new.y), visibleHeaderPartHeight: \(visibleHeaderPartHeight)")
+                        print("! 5.3 Scroll from top to bottom; scrollView.contentOffset.y <= 0: \(-new.y), visibleHeaderPartHeight: \(visibleHeaderPartHeight), proposedHeaderContentOffset: \(proposedHeaderContentOffset)")
 //                        scroll(self.tableView, setContentOffset: old)
                         
                         // Pull header down
@@ -157,13 +154,21 @@ class ViewController: UIViewController
                     if -new.y < visibleHeaderPartHeight {
 //                        scroll(self.tableView, setContentOffset: old)
 //                        scroll(self.scrollView, setContentOffset: proposedHeaderContentOffset)
-                        print("! 5.4 Scroll from top to bottom; scrollView.contentOffset.y > 0: \(new.y), visibleHeaderPartHeight: \(visibleHeaderPartHeight)")
+                        print("! 5.4 Scroll from top to bottom; scrollView.contentOffset.y > 0: \(new.y), visibleHeaderPartHeight: \(visibleHeaderPartHeight), proposedHeaderContentOffset: \(proposedHeaderContentOffset)")
+                        
+                        // Need when during header scroll we start content scroll and want header scroll to stop in proper place.
+                        if self.scrollView.isDecelerating {
+                            scroll(self.scrollView, setContentOffsetImmediately: proposedHeaderContentOffset)
+                        }
                     }
                     else {
 //                        self.headerHeightConstraint.constant = proposedHeaderHeight
-                        print("! 5.5 Scroll from top to bottom; scrollView.contentOffset.y <= 0: \(new.y), visibleHeaderPartHeight: \(visibleHeaderPartHeight)")
+                        print("! 5.5 Scroll from top to bottom; scrollView.contentOffset.y <= 0: \(new.y), visibleHeaderPartHeight: \(visibleHeaderPartHeight), proposedHeaderContentOffset: \(proposedHeaderContentOffset)")
 //                        scroll(self.tableView, setContentOffset: old)
                         // Pull header down
+                        let delta = -self.tableView.contentOffset.y - visibleHeaderPartHeight
+                        proposedHeaderContentOffset = CGPoint(x: self.scrollView.contentOffset.x, y: self.scrollView.contentOffset.y - delta)
+                        
                         scroll(self.scrollView, setContentOffsetImmediately: proposedHeaderContentOffset)
                     }
                 }
@@ -179,7 +184,7 @@ class ViewController: UIViewController
             {
                 // Scroll from bottom to top
                 if visibleHeaderPartHeight < self.minHeight {
-                    scroll(self.scrollView, setContentOffset: old)
+                    scroll(self.scrollView, setContentOffsetImmediately: old)
                     //                    self.headerHeightConstraint.constant = self.minHeight
                     // Pull header up
                     //                    scroll(self.scrollView, setContentOffset: newScrollViewContentOffset)

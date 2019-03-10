@@ -18,10 +18,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Mn-MU-TVm">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlf-OR-QAR" userLabel="Clip View">
+                                <rect key="frame" x="0.0" y="320" width="375" height="347"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Mn-MU-TVm">
+                                        <rect key="frame" x="0.0" y="-300" width="375" height="647"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gLN-HY-F7p" customClass="PassTouchesThroughScrollView" customModule="RoxieParallaxHeader" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
@@ -64,13 +70,17 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.2275603722" green="0.44869396150000002" blue="1" alpha="0.92449383799999996" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="9Mn-MU-TVm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="2qw-WU-fpL"/>
                             <constraint firstItem="gLN-HY-F7p" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5ss-AV-aHq"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9Mn-MU-TVm" secondAttribute="trailing" id="KHh-Yb-fQF"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="9Mn-MU-TVm" secondAttribute="bottom" id="Xx8-iT-GAe"/>
-                            <constraint firstItem="9Mn-MU-TVm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hvF-Ew-Rlb"/>
+                            <constraint firstItem="9Mn-MU-TVm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8ei-kS-aVK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mlf-OR-QAR" secondAttribute="bottom" id="9NH-Uc-MA7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9Mn-MU-TVm" secondAttribute="trailing" id="GQa-Wr-6pz"/>
+                            <constraint firstItem="mlf-OR-QAR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="L3g-bQ-vaf"/>
+                            <constraint firstItem="mlf-OR-QAR" firstAttribute="top" secondItem="tJn-Qp-dmT" secondAttribute="bottom" id="LsG-s9-QeW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mlf-OR-QAR" secondAttribute="trailing" id="QAx-Ed-3dm"/>
+                            <constraint firstItem="9Mn-MU-TVm" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="VUN-2N-Fxc"/>
+                            <constraint firstItem="9Mn-MU-TVm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rx4-bT-hmF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gLN-HY-F7p" secondAttribute="trailing" id="t3c-wQ-awe"/>
                             <constraint firstItem="gLN-HY-F7p" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uwY-46-Iub"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gLN-HY-F7p" secondAttribute="bottom" id="zUU-vp-GPC"/>
