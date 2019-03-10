@@ -122,7 +122,7 @@ class ViewController: UIViewController
                         proposedHeaderContentOffset = CGPoint(x: self.scrollView.contentOffset.x, y: self.maxHeight - self.minHeight)
                     }
                     
-                    scroll(self.scrollView, setContentOffset: proposedHeaderContentOffset)
+                    scroll(self.scrollView, setContentOffsetImmediately: proposedHeaderContentOffset)
                     
                     print("! 4.3 diff > 0; else")
                 }
@@ -150,7 +150,7 @@ class ViewController: UIViewController
 //                        scroll(self.tableView, setContentOffset: old)
                         
                         // Pull header down
-                        scroll(self.scrollView, setContentOffset: proposedHeaderContentOffset)
+                        scroll(self.scrollView, setContentOffsetImmediately: proposedHeaderContentOffset)
                     }
                 }
                 else {
@@ -164,7 +164,7 @@ class ViewController: UIViewController
                         print("! 5.5 Scroll from top to bottom; scrollView.contentOffset.y <= 0: \(new.y), visibleHeaderPartHeight: \(visibleHeaderPartHeight)")
 //                        scroll(self.tableView, setContentOffset: old)
                         // Pull header down
-                        scroll(self.scrollView, setContentOffset: proposedHeaderContentOffset)
+                        scroll(self.scrollView, setContentOffsetImmediately: proposedHeaderContentOffset)
                     }
                 }
             }
