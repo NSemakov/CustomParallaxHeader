@@ -15,16 +15,17 @@ import UIKit
 class PassTouchesThroughScrollView: UIScrollView
 {
 // MARK: - Methods
-
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView?
     {
-        var result = false
-        
-        if let headerView = self.firstViewOfClass(HeaderView.self) {
-            result = headerView.point(inside: point, with: event)
+        var result: UIView? = nil
+
+        if let headerView = self.firstViewOfClass(HeaderView.self), headerView.point(inside: point, with: event) {
+            result = headerView
         }
         
         return result
     }
 }
 
+// ----------------------------------------------------------------------------
