@@ -70,7 +70,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="0.2275603722" green="0.44869396150000002" blue="1" alpha="0.92449383799999996" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="gLN-HY-F7p" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5ss-AV-aHq"/>
                             <constraint firstItem="9Mn-MU-TVm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8ei-kS-aVK"/>
@@ -88,6 +88,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="clipView" destination="mlf-OR-QAR" id="8Ga-oN-Rcy"/>
                         <outlet property="dummyViewHeightConstraint" destination="Eeu-cZ-Ky0" id="xgy-l8-WfU"/>
                         <outlet property="headerContainerView" destination="tJn-Qp-dmT" id="1lh-2g-7TP"/>
                         <outlet property="headerHeightConstraint" destination="L8I-M8-xRb" id="F7z-JH-4aN"/>

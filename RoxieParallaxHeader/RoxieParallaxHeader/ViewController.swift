@@ -30,9 +30,10 @@ class ViewController: UIViewController
     
     @IBOutlet private(set) weak var dummyViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet private(set) weak var clipView: UIView!
     //    @IBOutlet private(set) weak var headerTopConstraint: NSLayoutConstraint!
     
-    // MARK: - Methods
+// MARK: - Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +52,7 @@ class ViewController: UIViewController
         self.tableView.separatorColor = Inner.SeparatorColor
         
         self.tableView.tableFooterView = UIView()
-        self.tableView.backgroundColor = Inner.BackgroundColor
+//        self.tableView.backgroundColor = Inner.BackgroundColor
         
         self.tableView.contentInset = UIEdgeInsetsMake(self.maxHeight, 0, 0, 0)
         
@@ -63,6 +64,27 @@ class ViewController: UIViewController
         
         // Set height such that we can move header up and down. And if we move up, we shouldn't be able to move header such that it heights will be less than self.minHeight
         self.dummyViewHeightConstraint.constant = self.scrollView.bounds.height - self.minHeight
+        
+        // Init the content refresh control
+//        self.contentRefreshControl.addTarget(self, action: Actions.startRefreshing, for: .valueChanged)
+//        self.tableView.insertSubview(self.contentRefreshControl, at: 0)
+        
+//        // Init the scrollView refresh control
+//        self.scrollRefreshControl.addTarget(self, action: Actions.startRefreshing, for: .valueChanged)
+//        self.scrollView.insertSubview(self.scrollRefreshControl, at: 0)
+        
+//        addTableViewRefreshControl()
+        
+//        self.contentRefreshControl.addTarget(self, action: Actions.startRefreshing, for: .valueChanged)
+//        self.tableView.insertSubview(self.contentRefreshControl, at: 0)
+
+        // Init the scrollView refresh control
+        self.contentRefreshControl.addTarget(self, action: Actions.startRefreshing, for: .valueChanged)
+        self.scrollView.insertSubview(self.contentRefreshControl, at: 0)
+        
+//        // Init the scrollView refresh control
+//        self.scrollRefreshControl.addTarget(self, action: Actions.startRefreshing, for: .valueChanged)
+//        self.scrollView.insertSubview(self.scrollRefreshControl, at: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,15 +113,29 @@ class ViewController: UIViewController
         print("! diff: \(diff)")
         let visibleHeaderPartHeight = self.scrollView.bounds.intersection(self.headerContainerView.bounds).height
         print("! visibleHeaderPartHeight: \(visibleHeaderPartHeight)")
+        
+        print("! self.tableView.contentOffset.y: \(self.tableView.contentOffset.y)")
+        print("! self.scrollView.contentOffset.y: \(self.scrollView.contentOffset.y)")
+//
+//        if visibleHeaderPartHeight >= self.maxHeight {
+//            self.clipView.clipsToBounds = true
+//        }
+//        else {
+//            self.clipView.clipsToBounds = false
+//        }
+        
         if let object = object as? AnyObject, object === self.tableView
         {
-            print("! self.tableView.contentOffset.y: \(self.tableView.contentOffset.y)")
             let proposedHeaderContentOffsetY = self.scrollView.contentOffset.y + diff // decrease when scroll from bottom to top and increase when scroll from top to bottom
             var proposedHeaderContentOffset = CGPoint(x: self.scrollView.contentOffset.x, y: proposedHeaderContentOffsetY)
 //            print("! self.headerHeightConstraint.constant: \(self.headerHeightConstraint.constant), diff: \(diff), proposedHeaderHeight: \(proposedHeaderHeight)")
             if diff > 0
             {
                 // Scroll from bottom to top
+                
+                // Should not see table view content
+//                self.clipView.clipsToBounds = true
+
                 if visibleHeaderPartHeight < self.minHeight {
 //                    self.headerHeightConstraint.constant = self.minHeight
                     // Pull header up
@@ -126,6 +162,9 @@ class ViewController: UIViewController
             }
             else {
                 // Scroll from top to bottom
+                
+                // Should see table view content (only it refresh control, other part of tableView is invisible)
+                self.clipView.clipsToBounds = false
                 
                 if visibleHeaderPartHeight < self.minHeight {
                     // Can't be here
@@ -164,8 +203,8 @@ class ViewController: UIViewController
                     else {
 //                        self.headerHeightConstraint.constant = proposedHeaderHeight
                         print("! 5.5 Scroll from top to bottom; scrollView.contentOffset.y <= 0: \(new.y), visibleHeaderPartHeight: \(visibleHeaderPartHeight), proposedHeaderContentOffset: \(proposedHeaderContentOffset)")
-//                        scroll(self.tableView, setContentOffset: old)
                         // Pull header down
+                        // Here we don't need to add all diff to current offset. Only those part of it, to make it look seamless.
                         let delta = -self.tableView.contentOffset.y - visibleHeaderPartHeight
                         proposedHeaderContentOffset = CGPoint(x: self.scrollView.contentOffset.x, y: self.scrollView.contentOffset.y - delta)
                         
@@ -177,8 +216,10 @@ class ViewController: UIViewController
         else
         if let object = object as? AnyObject, object === self.scrollView
         {
+            
+            
             let proposedTableViewContentOffsetY = self.tableView.contentOffset.y + diff // decrease when scroll from bottom to top and increase when scroll from top to bottom
-            var proposedTableViewContentOffset = CGPoint(x: self.tableView.contentOffset.x, y: proposedTableViewContentOffsetY)
+            let proposedTableViewContentOffset = CGPoint(x: self.tableView.contentOffset.x, y: proposedTableViewContentOffsetY)
             
             if diff > 0
             {
@@ -241,7 +282,13 @@ class ViewController: UIViewController
     
 // MARK: - Actions
     
-    // ...
+    @IBAction
+    func startRefreshing(_ sender: Any) {
+        Dispatch.after(3.0) { () -> (Void) in
+            self.contentRefreshControl.endRefreshing()
+            self.scrollRefreshControl.endRefreshing()
+        }
+    }
     
 // MARK: - Private Methods
     
@@ -336,6 +383,24 @@ class ViewController: UIViewController
         self.isObserving = true
     }
     
+    private func addTableViewRefreshControl()
+    {
+        self.tableView.insertSubview(self.contentRefreshControl, at: 0)
+        
+        if #available(iOS 11, *) {
+            self.contentRefreshControl.autoPinEdge(toSuperviewSafeArea: .top)
+        } else {
+            let standardSpacing: CGFloat = 0.0
+            NSLayoutConstraint.activate([
+                self.contentRefreshControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: standardSpacing)
+                ])
+        }
+        
+        self.contentRefreshControl.autoSetDimension(.height, toSize: Inner.RefreshControlSize.height)
+        self.contentRefreshControl.autoSetDimension(.width, toSize: Inner.RefreshControlSize.width)
+        self.contentRefreshControl.autoAlignAxis(.vertical, toSameAxisOf: self.view)
+    }
+    
 // MARK: - Inner Types
     
     private enum HeaderState {
@@ -346,19 +411,26 @@ class ViewController: UIViewController
     
 // MARK: - Constants
     
+    private struct Actions
+    {
+        static let startRefreshing = #selector(ViewController.startRefreshing(_:))
+    }
+    
     private struct Inner
     {
         static let ProfileHeaderViewHeight: CGFloat = 60.0
-        static let BackgroundColor: UIColor = UIColor(red: 68.0/255.0, green: 76.0/255.0, blue: 94.0/255.0, alpha: 1)
+//        static let BackgroundColor: UIColor = UIColor(red: 68.0/255.0, green: 76.0/255.0, blue: 94.0/255.0, alpha: 1)
         static let TableContentInsets = UIEdgeInsetsMake(24.0, 0, 0, 0)
         static let ChangeHeightThreshold: CGFloat = 0.5 // 50 % from bottom
         static let SeparatorColor: UIColor = UIColor.gray
         
         static let PanAnimationDuration: TimeInterval = 0.30
         static let PanVelocityThreshold: CGFloat = 300
+        
+        static let RefreshControlSize = CGSize(width: 50.0, height: 40.0)
     }
     
-    // MARK: - Variables
+// MARK: - Variables
     
     private var tableViewHelper: AutoLayoutTableViewHelper!
     
@@ -368,11 +440,15 @@ class ViewController: UIViewController
     
     private var minHeight: CGFloat = 50
     
-    private var maxHeight: CGFloat = 190
+    private var maxHeight: CGFloat = 185
     
     private var initialHeight: CGFloat = 0
     
     private var isObserving = true
+    
+    private let scrollRefreshControl = UIRefreshControl()
+    
+    private let contentRefreshControl = UIRefreshControl()
 }
 
 extension ViewController: UIScrollViewDelegate
