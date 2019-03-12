@@ -14,6 +14,18 @@ import UIKit
 
 class PassTouchesThroughScrollView: UIScrollView
 {
+    
+    override var contentInset:UIEdgeInsets {
+        willSet {
+            if self.isTracking {
+                let diff = newValue.top - self.contentInset.top;
+                var translation = self.panGestureRecognizer.translation(in: self)
+                translation.y -= diff * 3.0 / 2.0
+                self.panGestureRecognizer.setTranslation(translation, in: self)
+            }
+        }
+    }
+
 // MARK: - Methods
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView?

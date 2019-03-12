@@ -30,9 +30,11 @@ class ViewController: UIViewController
     
     @IBOutlet private(set) weak var dummyViewHeightConstraint: NSLayoutConstraint!
     
-    //    @IBOutlet private(set) weak var headerTopConstraint: NSLayoutConstraint!
+    @IBOutlet private(set) weak var refreshScrollDummyViewHeightConstraint: NSLayoutConstraint!
+
+    @IBOutlet private(set) weak var refreshScrollView: PassTouchesThroughScrollView!
     
-// MARK: - Methods
+    // MARK: - Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,26 +66,37 @@ class ViewController: UIViewController
         // Set height such that we can move header up and down. And if we move up, we shouldn't be able to move header such that it heights will be less than self.minHeight
         self.dummyViewHeightConstraint.constant = self.scrollView.bounds.height - self.minHeight
         
+        
         // Init the content refresh control
-        self.contentRefreshControl.addTarget(self, action: Actions.startRefreshing, for: .valueChanged)
+//        self.contentRefreshControl.addTarget(self, action: Actions.startRefreshing, for: .valueChanged)
 //        self.tableView.insertSubview(self.contentRefreshControl, at: 0)
 //        self.contentRefreshControl.tintColor = UIColor.clear
-        self.contentRefreshControl.tintColor = UIColor.orange
+//        self.contentRefreshControl.tintColor = UIColor.blue
 //        // Init the scrollView refresh control
 //        self.scrollRefreshControl.addTarget(self, action: Actions.startRefreshing, for: .valueChanged)
 //        self.scrollView.insertSubview(self.scrollRefreshControl, at: 0)
         
         addTableViewRefreshControl()
         addScrollViewRefreshControl()
+        addRefreshScrollViewRefreshControl()
         // Init the scrollView refresh control
         self.scrollRefreshControl.addTarget(self, action: Actions.startRefreshing, for: .valueChanged)
+        self.contentRefreshControl.addTarget(self, action: Actions.startRefreshing, for: .valueChanged)
 //        self.scrollView.insertSubview(self.scrollRefreshControl, at: 0)
-        self.scrollRefreshControl.tintColor = UIColor.clear
+        
+        self.scrollRefreshControl.tintColor = UIColor.clear //green.withAlphaComponent(0.5)
+        self.refreshScrollRefreshControl.tintColor = UIColor.black.withAlphaComponent(0.5)
+        self.contentRefreshControl.tintColor = UIColor.clear//yellow
+
+//        self.contentRefreshControl.autoSetDimensions(to: Inner.RefreshControlSize)
+        self.scrollRefreshControl.autoSetDimensions(to: Inner.RefreshControlSize)
+        self.refreshScrollRefreshControl.autoSetDimensions(to: Inner.RefreshControlSize)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.refreshScrollDummyViewHeightConstraint.constant = self.dummyViewHeightConstraint.constant + self.maxHeight
         // Update UI
         updateInterface()
     }
@@ -120,13 +133,19 @@ class ViewController: UIViewController
 //        print("! self.scrollView.contentInset: \(self.scrollView.contentInset)")
         if let object = object as? UIScrollView, object === self.tableView
         {
-//            if self.tableView.contentOffset.y < -320 && !self.scrollRefreshControl.isRefreshing{
-//                self.scrollRefreshControl.beginRefreshing()
-//                self.scrollRefreshControl.sendActions(for: .valueChanged)
-//            }
+            if -new.y > 300 {
+                self.refreshScrollRefreshControl.beginRefreshing()
+//                self.contentRefreshControl.beginRefreshing()
+//                self.contentRefreshControl.sendActions(for: .valueChanged)
+            }
 
             let proposedHeaderContentOffsetY = self.scrollView.contentOffset.y + diff // decrease when scroll from bottom to top and increase when scroll from top to bottom
             var proposedHeaderContentOffset = CGPoint(x: self.scrollView.contentOffset.x, y: proposedHeaderContentOffsetY)
+            
+            let proposedHeaderContentOffset1Y = self.refreshScrollView.contentOffset.y + diff // decrease when scroll from bottom to top and increase when scroll from top to bottom
+            let proposedHeaderContentOffset1 = CGPoint(x: self.refreshScrollView.contentOffset.x, y: proposedHeaderContentOffset1Y)
+            // Set refresh Scroll offset
+            scroll(self.refreshScrollView, setContentOffset: proposedHeaderContentOffset1)
 //            print("! self.headerHeightConstraint.constant: \(self.headerHeightConstraint.constant), diff: \(diff), proposedHeaderHeight: \(proposedHeaderHeight)")
             if diff > 0
             {
@@ -158,7 +177,6 @@ class ViewController: UIViewController
             }
             else {
                 // Scroll from top to bottom
-
                 if visibleHeaderPartHeight < self.minHeight {
                     // Can't be here
 //                    self.headerHeightConstraint.constant = self.minHeight
@@ -210,6 +228,10 @@ class ViewController: UIViewController
         else
         if let object = object as? UIScrollView, object === self.scrollView
         {
+            scroll(self.refreshScrollView, setContentOffset: new)
+            if -new.y > 120 {
+                self.refreshScrollRefreshControl.beginRefreshing()
+            }
             let proposedTableViewContentOffsetY = self.tableView.contentOffset.y + diff // decrease when scroll from bottom to top and increase when scroll from top to bottom
             let proposedTableViewContentOffset = CGPoint(x: self.tableView.contentOffset.x, y: proposedTableViewContentOffsetY)
             
@@ -247,7 +269,11 @@ class ViewController: UIViewController
             }
             else {
                 // Scroll from top to bottom
-                
+
+//                if new.y <= 0 {
+//                    scroll(self.refreshScrollView, setContentOffset: new)
+//                }
+
                 if visibleHeaderPartHeight < self.minHeight {
                     // Can't be here
                     //                    self.headerHeightConstraint.constant = self.minHeight
@@ -274,40 +300,11 @@ class ViewController: UIViewController
     
     @IBAction
     func startRefreshing(_ sender: Any) {
-//        guard !self.scrollRefreshControl.isRefreshing && !self.contentRefreshControl.isRefreshing else { return }
-        if let sender = sender as? UIRefreshControl, sender == self.scrollRefreshControl {
-            Dispatch.after(2.0) { () -> (Void) in
-                self.scrollRefreshControl.endRefreshing()
-                self.scrollView.setContentOffset(CGPoint.zero, animated: true)
-                self.contentRefreshControl.endRefreshing()
-            }
-        }
-        else
-        if let sender = sender as? UIRefreshControl, sender == self.contentRefreshControl {
-            let currentTableOffset = self.tableView.contentOffset
-            self.tableView.setContentOffset(CGPoint(x: currentTableOffset.x, y: currentTableOffset.y + 1), animated: true)
-            self.tableView.setContentOffset(CGPoint(x: currentTableOffset.x, y: currentTableOffset.y), animated: true)
-            
-            let currentScrollOffset = self.scrollView.contentOffset
-            self.scrollView.setContentOffset(CGPoint(x: currentScrollOffset.x, y: currentScrollOffset.y + 1), animated: true)
-            self.scrollView.setContentOffset(CGPoint(x: currentScrollOffset.x, y: currentScrollOffset.y), animated: true)
-            
-            self.scrollRefreshControl.beginRefreshing()
-            Dispatch.after(1.0) { () -> (Void) in
-                self.scrollRefreshControl.tintColor = UIColor.yellow//orange
-                self.contentRefreshControl.tintColor = UIColor.clear
-            }
-            
-            Dispatch.after(3.0) { () -> (Void) in
-                self.scrollRefreshControl.endRefreshing()
-                self.contentRefreshControl.endRefreshing()
-                self.tableView.setContentOffset(CGPoint(x: 0, y: -185), animated: true)
-                
-                self.scrollRefreshControl.tintColor = UIColor.clear
-                self.contentRefreshControl.tintColor = UIColor.orange
-//                self.scrollView.setContentOffset(CGPoint.zero, animated: false)
-//                self.scroll(self.scrollView, setContentOffset: CGPoint.zero)
-            }
+    
+        Dispatch.after(3.0) { () -> (Void) in
+            self.scrollRefreshControl.endRefreshing()
+            self.refreshScrollRefreshControl.endRefreshing()
+            self.contentRefreshControl.endRefreshing()
         }
     }
     
@@ -404,26 +401,52 @@ class ViewController: UIViewController
         self.isObserving = true
     }
     
+    private func scroll(_ scrollView: UIScrollView, setContentOffsetWithAnimation offset: CGPoint)
+    {
+        self.isObserving = false
+        scrollView.setContentOffset(offset, animated: true)
+        self.isObserving = true
+    }
+    
     private func addTableViewRefreshControl()
     {
+//        self.contentRefreshControl.removeFromSuperview()
         self.tableView.insertSubview(self.contentRefreshControl, at: 0)
+
+//        if #available(iOS 11, *) {
+//            self.contentRefreshControl.autoPinEdge(toSuperviewSafeArea: .top)
+//        } else {
+//            let standardSpacing: CGFloat = 0.0
+//            NSLayoutConstraint.activate([
+//                self.contentRefreshControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: standardSpacing)
+//                ])
+//        }
+
+//        self.contentRefreshControl.autoSetDimension(.height, toSize: Inner.RefreshControlSize.height)
+//        self.contentRefreshControl.autoSetDimension(.width, toSize: Inner.RefreshControlSize.width)
+//        self.contentRefreshControl.autoAlignAxis(.vertical, toSameAxisOf: self.view)
+    }
+    
+    private func addRefreshScrollViewRefreshControl()
+    {
+        self.refreshScrollRefreshControl.removeFromSuperview()
+        self.refreshScrollView.insertSubview(self.refreshScrollRefreshControl, at: 0)
         
         if #available(iOS 11, *) {
-            self.contentRefreshControl.autoPinEdge(toSuperviewSafeArea: .top)
+            self.refreshScrollRefreshControl.autoPinEdge(toSuperviewSafeArea: .top)
         } else {
             let standardSpacing: CGFloat = 0.0
             NSLayoutConstraint.activate([
-                self.contentRefreshControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: standardSpacing)
+                self.refreshScrollRefreshControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: standardSpacing)
                 ])
         }
         
-        self.contentRefreshControl.autoSetDimension(.height, toSize: Inner.RefreshControlSize.height)
-        self.contentRefreshControl.autoSetDimension(.width, toSize: Inner.RefreshControlSize.width)
-        self.contentRefreshControl.autoAlignAxis(.vertical, toSameAxisOf: self.view)
+        self.refreshScrollRefreshControl.autoAlignAxis(.vertical, toSameAxisOf: self.view)
     }
     
     private func addScrollViewRefreshControl()
     {
+        self.scrollRefreshControl.removeFromSuperview()
         self.scrollView.insertSubview(self.scrollRefreshControl, at: 0)
         
         if #available(iOS 11, *) {
@@ -435,8 +458,6 @@ class ViewController: UIViewController
                 ])
         }
         
-        self.scrollRefreshControl.autoSetDimension(.height, toSize: Inner.RefreshControlSize.height)
-        self.scrollRefreshControl.autoSetDimension(.width, toSize: Inner.RefreshControlSize.width)
         self.scrollRefreshControl.autoAlignAxis(.vertical, toSameAxisOf: self.view)
     }
     
@@ -486,6 +507,8 @@ class ViewController: UIViewController
     private var isObserving = true
     
     private let scrollRefreshControl = UIRefreshControl()
+    
+    private let refreshScrollRefreshControl = UIRefreshControl()
     
     private let contentRefreshControl = UIRefreshControl()
 }
